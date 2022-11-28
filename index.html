@@ -1,0 +1,778 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Tabular Data Specification Schema</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/h5bp-normalize.css">
+  <link rel="stylesheet" href="css/h5bp-main.css">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+<!--  <script src="js/vendor/modernizr-3.11.2.min.js"></script>-->
+<!--  <script src="js/plugins.js"></script>-->
+<!--  <script src="js/main.js"></script>-->
+
+<div class="ver">
+  <p class="ver">
+    <a class="ver" href="https://semver.org/">Version</a> 0.1.0
+  </p>
+</div>
+
+<div class="content">
+
+
+  <h1><a href="https://stadas.org/">Schema for Tabular Dataset Specification</a></h1>
+
+  <p>Stadas (Schema for Tabular Dataset Specification) is a schema for specifying a tabular dataset
+    in a format that is easy for humans to read and write. The specification is typically composed
+    of tables, such as
+    <a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> or
+    <a href="https://en.wikipedia.org/wiki/Microsoft_Excel">Excel</a> files, but may also be
+    represented as, for example, a <a href="https://www.json.org/json-en.html">JSON</a> document.
+    Stadas works as a documentation of a dataset but is also used for validating data for the dataset.
+    Stadas helps in reducing the risk that data does not match documentation.</p>
+
+  <p>This document includes the following sections:</p>
+
+  <ol>
+    <li><a href="#heading-tabular-data"><strong>Tabular data</strong></a>:
+      A brief specification of tabular data
+    </li>
+    <li><a href="#heading-schema"><strong>Schema</strong></a>:
+      The schema for tabular dataset specification (Stadas)
+    </li>
+    <li><a href="#heading-simple-example"><strong>Simple example</strong></a>:
+      A simple Stadas example as HTML tables
+    </li>
+    <li><a href="#heading-full-examples"><strong>Full examples</strong></a>:
+      Full Stadas examples in various formats
+    </li>
+    <li><a href="#heading-process-example"><strong>Process example: Surveys</strong></a>:
+      An example of a survey process using Stadas
+    </li>
+    <li><a href="#heading-tools"><strong>Tools</strong></a>:
+      Programming tools in different languages for using Stadas in applications
+    </li>
+  </ol>
+
+  <h2 id="heading-tabular-data">Tabular data</h2>
+
+  <p>Tabular data is composed of values organized in rows and columns. Specifically, you should
+    always be able to revert tabular data into a
+    <em>"<a href="https://tidyr.tidyverse.org/articles/tidy-data.html">tidy</a>"</em> format
+    (emphasis added):</p>
+
+  <blockquote cite="https://tidyr.tidyverse.org/articles/tidy-data.html">
+    There are three interrelated rules which make a dataset <strong>tidy</strong>:
+
+    <ol>
+      <li>Each <strong>variable</strong> must have its own column.</li>
+      <li>Each <strong>observation</strong> must have its own row.</li>
+      <li>Each <strong>value</strong> must have its own cell.</li>
+    </ol>
+  </blockquote>
+
+  <h3>Variable</h3>
+
+  <p>A variable is a construct with three mandatory components:</p>
+
+  <ol>
+    <li>A name (unique within a dataset)</li>
+    <li>A list of values</li>
+    <li>A mapping that ties each value to a certain observation in a certain dataset</li>
+  </ol>
+
+  <p>The name is the main interface to the variable. It should be concise but descriptive and
+    unique at least within a dataset. The list of values can hold anything from integer numbers
+    to multiple lines of text. The mapping is often built into the structure of the dataset.
+    In a tidy dataset, each row represents an observation tying all values on a given row
+    into the same observation.</p>
+
+  <h3>Observation</h3>
+
+  <p>An observation is, for example, a state of a system or a set of responses from a survey participant
+    at a certain time point. The responses or entries are mapped to the variables as values in a
+    consistent manner.</p>
+
+  <p>In a tidy dataset, each row represents an observation. Each value in a row belongs to a
+    different variable (i.e. a column in a table).</p>
+
+  <h3>Value</h3>
+
+  <p>The values are typically of the same type (for example, integer or decimal numbers) or belong
+    to a set of predefined categories, but they vary within a dataset (hence, <em>"variable"</em>).
+    However, so-called <em>metadata</em> variables can be used to add context (for example,
+    a project name or the name of an organization) and be constant within the dataset.
+    A list of values within the same observation should be divided into multiple variables
+    (for example, define variables <code>stress_factor_1</code>, <code>stress_factor_2</code> and
+    <code>stress_factor_3</code>, instead of <code>stress_factors</code>).</p>
+
+
+  <h2 id="heading-schema">Schema</h2>
+
+  The specification is typically defined with two or more tables:
+
+  <ul>
+    <li><code>setup</code>: exactly one</li>
+    <li><code>variables</code>: one or more</li>
+    <li><code>categories</code>: zero or more</li>
+    <li><code>colors</code>: zero or more</li>
+    <li><code>rules</code>: zero or more</li>
+  </ul>
+
+  <h3><code>setup</code></h3>
+
+  <ul>
+    <li>The specification consists <strong>exactly one</strong> <code>setup</code> table</li>
+    <li>Description:
+      <ul>
+        <li>The first table to be read</li>
+        <li>Sets up the specification</li>
+      </ul>
+    </li>
+    <li>Columns:
+      <ul>
+        <li><strong><code>tabletype</code></strong>: the type of specification table
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>Only rows with a value are considered</li>
+                <li>One of:
+                  <ul>
+                    <li><code>"variable"</code></li>
+                    <li><code>"rule"</code></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>tablename</code></strong>: the name of a specification table
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>Must start with a lower case ASCII letter (a...z)</li>
+                <li>Must contain only lower case alpha-numeric ASCII characters
+                  and underscores (a...z, 0...9 and _)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3><code>variables</code></h3>
+
+  <ul>
+    <li>The specification consists <strong>one or more</strong> <code>variables</code> tables</li>
+    <li>Description:
+      <ul>
+        <li>Defines the variables of a dataset</li>
+      </ul>
+    </li>
+    <li>Columns:
+      <ul>
+        <li><strong><code>varname</code></strong>: the name of the variable
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>Only rows with a value are considered</li>
+                <li>Must be unique within the dataset</li>
+                <li>Must start with a lower case ASCII letter (a...z)</li>
+                <li>Must contain only lower case alpha-numeric ASCII characters
+                  and underscores (a...z, 0...9 and _)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>vargroup</code></strong>: the name of the group of the variable
+          <ul>
+            <li>Optional</li>
+            <li>Constraints:
+              <ul>
+                <li>Must start with a lower case ASCII letter (a...z)</li>
+                <li>Must contain only lower case alpha-numeric ASCII characters
+                  and underscores (a...z, 0...9 and _)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>datatype</code></strong>: the data type of the variable
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>Must have a value if <code>varname</code> has a value</li>
+                <li>One of:
+                  <ul>
+                    <li><code>"integer"</code></li>
+                    <li><code>"decimal"</code></li>
+                    <li><code>"categorical"</code></li>
+                    <li><code>"text"</code></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>unique</code></strong>: whether the values of the variable should be unique within the dataset
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>One of:
+                  <ul>
+                    <li><code>NA</code></li>
+                    <li><code>"unique"</code></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>nona</code></strong>: whether the variable must have a
+          value in every observation within the dataset
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>One of:
+                  <ul>
+                    <li><code>NA</code></li>
+                    <li><code>"nona"</code></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>categorytable</code></strong>: the name of a <code>categories</code> table
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>If has a value, it must refer to a <code>categories</code>
+                  table in the specification
+                </li>
+                <li>Must start with a lower case ASCII letter (a...z)</li>
+                <li>Must contain only lower case alpha-numeric ASCII characters
+                  and underscores (a...z, 0...9 and _)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>categoryset</code></strong>: the name of the set of categories of the variable
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>Must have a value if <code>categorytable</code> has a value</li>
+                <li>Must be found in the referred <code>categories</code> table</li>
+                <li>Must start with a lower case ASCII letter (a...z)</li>
+                <li>Must contain only lower case alpha-numeric ASCII characters
+                  and underscores (a...z, 0...9 and _)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>label{_LANG}</code></strong>: the label of the variable in the language
+          <code>LANG</code>; if no <code>LANG</code> key defined, the given label will be used in
+          all situations; if no <code>label</code> column defined, <code>varname</code> used instead
+          <ul>
+            <li>Optional</li>
+          </ul>
+        </li>
+        <li><strong><code>mapping{_MAPPING_KEY}</code></strong>: a mapping between the variable and
+          a column in the data <code>MAPPING_KEY</code>; if no <code>MAPPING_KEY</code> defined,
+          the given mapping will be used for all sub datasets; if no <code>mapping</code> column defined,
+          <code>varname</code> used instead
+          <ul>
+            <li>Optional</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3><code>categories</code></h3>
+
+  <ul>
+    <li>The specification consists <strong>zero or more</strong> <code>categories</code> tables</li>
+    <li>Description:
+      <ul>
+        <li>Defines the categories of the categorical variables</li>
+      </ul>
+    </li>
+    <li>Columns:
+      <ul>
+        <li><strong><code>categoryset</code></strong>: the name of the set of the category
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>Only rows with a value are considered</li>
+                <li>Must start with a lower case ASCII letter (a...z)</li>
+                <li>Must contain only lower case alpha-numeric ASCII characters
+                  and underscores (a...z, 0...9 and _)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>name</code></strong>: the name of the category
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>Must start with a lower case ASCII letter (a...z)</li>
+                <li>Must contain only lower case alpha-numeric ASCII characters
+                  and underscores (a...z, 0...9 and _)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>label{_LANG}</code></strong>: the label of the category in the language
+          <code>LANG</code>; if no <code>LANG</code> key defined, the given label will be used is
+          all situations; if no <code>label</code> column defined, <code>varname</code> used instead
+          <ul>
+            <li>Optional</li>
+          </ul>
+        </li>
+        <li><strong><code>mapping{_MAPPING_KEY}</code></strong>: a mapping between the category and
+          a value in data <code>MAPPING_KEY</code>; if no <code>MAPPING_KEY</code> defined, the given
+          mapping will be used for all sub datasets; if no <code>mapping</code> column defined,
+          <code>name</code> used instead
+          <ul>
+            <li>Optional</li>
+          </ul>
+        </li>
+        <li><strong><code>colortable</code></strong>: the name of a <code>colors</code> table
+          <ul>
+            <li>Optional</li>
+            <li>Constraints:
+              <ul>
+                <li>Must refer to a <code>colors</code> table in the specification</li>
+                <li>Must start with a lower case ASCII letter (a...z)</li>
+                <li>Must contain only lower case alpha-numeric ASCII characters
+                  and underscores (a...z, 0...9 and _)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>colorname</code></strong>: the name of the color for the category
+          to be used, for example, in plots
+          <ul>
+            <li>Optional (must exist if <code>colortable</code> exists)</li>
+            <li>Constraints:
+              <ul>
+                <li>Must have a value if <code>colortable</code> is not empty</li>
+                <li>Must be found in the referred <code>color</code> table</li>
+                <li>Must start with a lower case ASCII letter (a...z)</li>
+                <li>Must contain only lower case alpha-numeric ASCII characters
+                  and underscores (a...z, 0...9 and _)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3><code>colors</code></h3>
+
+  <ul>
+    <li>The specification consists <strong>zero or more</strong> <code>colors</code> tables</li>
+    <li>Description:
+      <ul>
+        <li>Defines colours for the categories to be used, for example, in plots</li>
+      </ul>
+    </li>
+    <li>Columns:
+      <ul>
+        <li><strong><code>colorname</code></strong>: the name of the colour
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>Must start with a lower case ASCII letter (a...z)</li>
+                <li>Must contain only lower case alpha-numeric ASCII characters
+                  and underscores (a...z, 0...9 and _)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>colorhex</code></strong>: the
+          <a href="https://www.w3schools.com/colors/colors_hexadecimal.asp">hexadecimal code</a>
+          of the colour
+          <ul>
+            <li>constraints:
+              <ul>
+                <li>must be a valid
+                  <a href="https://www.w3schools.com/colors/colors_hexadecimal.asp">hexadecimal code</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3><code>rules</code></h3>
+
+  <ul>
+    <li>The specification consists <strong>zero or more</strong> <code>rules</code> tables</li>
+    <li>Description:
+      <ul>
+        <li>Defines additional constraints and rules for the variables and the dataset</li>
+      </ul>
+    </li>
+    <li>Columns:
+      <ul>
+        <li><strong><code>ruleset</code></strong>: the name of the set of the rule</li>
+        <li><strong><code>rule</code></strong>: the rule
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>must be a valid rule</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>label</code></strong>: a label for the rule
+        </li>
+        <li><strong><code>description</code></strong>: a description for the rule
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+
+  <h2 id="heading-simple-example">Simple example</h2>
+
+  <p>Here is a simple example of a Stadas specification as HTML tables.
+  The <code>setup</code> table specifies two tables: <code>vars</code>
+    (type: <code>"variable"</code>) and <code>rules</code> (type: <code>"rule"</code>).
+  The <code>vars</code> table defines the <code>categories</code> table, which in turn
+  defines the <code>sequential</code> table.</p>
+
+  <h3>Specification</h3>
+
+  <h4><code>setup</code></h4>
+
+  <div class="table">
+    <table>
+      <tr>
+        <th>tabletype</th>
+        <th>tablename</th>
+      </tr>
+      <tr>
+        <td>variable</td>
+        <td>vars</td>
+      </tr>
+      <tr>
+        <td>rule</td>
+        <td>rules</td>
+      </tr>
+    </table>
+  </div>
+
+  <h4><code>vars</code></h4>
+
+  <div class="table">
+    <table>
+      <tr>
+        <th>varname</th>
+        <th>datatype</th>
+        <th>unique</th>
+        <th>nona</th>
+        <th>categorytable</th>
+        <th>categoryset</th>
+        <th>label_en</th>
+      </tr>
+      <tr>
+        <td>id</td>
+        <td>integer</td>
+        <td>unique</td>
+        <td>nona</td>
+        <td></td>
+        <td></td>
+        <td>ID</td>
+      </tr>
+      <tr>
+        <td>age</td>
+        <td>integer</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Age in years</td>
+      </tr>
+      <tr>
+        <td>height</td>
+        <td>integer</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Height in centimeters</td>
+      </tr>
+      <tr>
+        <td>weight</td>
+        <td>decimal</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Weight in kilograms</td>
+      </tr>
+      <tr>
+        <td>health</td>
+        <td>categorical</td>
+        <td></td>
+        <td></td>
+        <td>categories</td>
+        <td>health</td>
+        <td>Self rated health</td>
+      </tr>
+    </table>
+  </div>
+
+  <h4><code>categories</code></h4>
+
+  <div class="table">
+    <table>
+      <tr>
+        <th>categoryset</th>
+        <th>name</th>
+        <th>label_en</th>
+        <th>mapping</th>
+        <th>colortable</th>
+        <th>colorname</th>
+      </tr>
+      <tr>
+        <td>health</td>
+        <td>excellent</td>
+        <td>Excellent</td>
+        <td>5</td>
+        <td>sequential</td>
+        <td>seq5</td>
+      </tr>
+      <tr>
+        <td>health</td>
+        <td>verygood</td>
+        <td>Very good</td>
+        <td>4</td>
+        <td>sequential</td>
+        <td>seq4</td>
+      </tr>
+      <tr>
+        <td>health</td>
+        <td>good</td>
+        <td>Good</td>
+        <td>3</td>
+        <td>sequential</td>
+        <td>seq3</td>
+      </tr>
+      <tr>
+        <td>health</td>
+        <td>fair</td>
+        <td>Fair</td>
+        <td>2</td>
+        <td>sequential</td>
+        <td>seq2</td>
+      </tr>
+      <tr>
+        <td>health</td>
+        <td>poor</td>
+        <td>Poor</td>
+        <td>1</td>
+        <td>sequential</td>
+        <td>seq1</td>
+      </tr>
+    </table>
+  </div>
+
+  <h4><code>sequential</code></h4>
+
+  <div class="table">
+    <table>
+      <tr>
+        <th>colorname</th>
+        <th>colorhex</th>
+      </tr>
+      <tr>
+        <td>seq1</td>
+        <td>#f1eef6</td>
+      </tr>
+      <tr>
+        <td>seq2</td>
+        <td>#bdc9e1</td>
+      </tr>
+      <tr>
+        <td>seq3</td>
+        <td>#74a9cf</td>
+      </tr>
+      <tr>
+        <td>seq4</td>
+        <td>#2b8cbe</td>
+      </tr>
+      <tr>
+        <td>seq5</td>
+        <td>#045a8d</td>
+      </tr>
+    </table>
+  </div>
+
+  <h4><code>rules</code></h4>
+
+  <div class="table">
+    <table>
+      <tr>
+        <th>rulename</th>
+        <th>rule</th>
+        <th>label</th>
+        <th>description</th>
+      </tr>
+      <tr>
+        <td>age_valid</td>
+        <td>age => 0 & age < 120</td>
+        <td>Age is valid</td>
+        <td>Age must be at least zero and less than 120 year</td>
+      </tr>
+      <tr>
+        <td>height_valid</td>
+        <td>height => 40 & height < 250</td>
+        <td>Height is valid</td>
+        <td>Height must be at least 40 and less than 250 centimeters</td>
+      </tr>
+      <tr>
+        <td>weight_valid</td>
+        <td>weight => 2 & weight < 500</td>
+        <td>Weight is valid</td>
+        <td>Weight must be at least two and less than 500 kilograms</td>
+      </tr>
+    </table>
+  </div>
+
+  <h3>Example data</h3>
+
+  <table>
+    <tr>
+      <th>id</th>
+      <th>age</th>
+      <th>height</th>
+      <th>weight</th>
+      <th>health</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>32</td>
+      <td>164</td>
+      <td>65</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>23</td>
+      <td>183</td>
+      <td>85</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>63</td>
+      <td>171</td>
+      <td>69</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>33</td>
+      <td>174</td>
+      <td>71</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>19</td>
+      <td>191</td>
+      <td>88</td>
+      <td>4</td>
+    </tr>
+  </table>
+
+  <h2 id="heading-full-examples">Full examples</h2>
+
+  <p>A full example is created with the
+    <a href="https://www.cdc.gov/nchs/nhis/index.htm">National Health Interview Survey</a>
+    (NHIS). Here are specifications for a subset of the 2021 NHIS dataset in different formats:</p>
+
+  <ul>
+    <li><a href="./example-specs/excel/">Excel</a></li>
+    <li><a href="./example-specs/csv">CSV</a></li>
+    <li><a href="./example-specs/html">HTML</a></li>
+    <li><a href="./example-specs/json/">JSON</a></li>
+  </ul>
+
+
+  <h2 id="heading-process-example">Process example: Surveys</h2>
+
+  <p>Here is an example of a survey process using Stadas.</p>
+
+  <ol>
+    <li>Define a dataset with Stadas specification</li>
+    <li>Build surveys with items corresponding to the variables defined in the dataset
+      (different surveys typically contain also other items)</li>
+    <li>Gather data with the different surveys in different contexts</li>
+    <li>Validate data against the Stadas specification
+      <ul>
+        <li>Ensure that the columns are labelled with valid variable names</li>
+        <li>Ensure that the data contains only valid values</li>
+        <li>Ensure that the values of categorical variables are labelled with valid category names
+        (instead of, for example, integer codes)</li>
+        <li>Drop unspecified variables if needed</li>
+      </ul>
+    </li>
+    <li>Start doing analyses and plots with high confidence that the data
+    from all the different surveys match the specification</li>
+    <li></li>
+  </ol>
+
+
+  <h2 id="heading-tools">Tools</h2>
+
+  <p>Programming tools in different languages for using Stadas in applications
+    will be added here.</p>
+
+</div>
+
+<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+<!--  <script>-->
+<!--    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;-->
+<!--    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')-->
+<!--  </script>-->
+<!--  <script src="https://www.google-analytics.com/analytics.js" async></script>-->
+</body>
+
+</html>
