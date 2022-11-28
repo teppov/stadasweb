@@ -1,0 +1,9 @@
+varname,vargroup,datatype,categorytable,categoryset,unique,nona,label_en,mapping,description,tablename
+age,background,integer,,,,,Age,prep_age,Age in years,var_general
+sex,background,categorical,cat_general,sex,,,Sex,SEX_A,Sex of Sample Adult,var_general
+height,background,decimal,,,,,Height,prep_height,Height in meters,var_general
+weight,background,decimal,,,,,Weight,prep_weight,Weight in kilograms,var_general
+edulevel,background,categorical,cat_general,edulevel,,,Education level,EDUCP_A,Educational level of sample adult,var_general
+nof_adults,family,integer,,,,,Number of adults in family,prep_nof_adults,Number of adults in family,var_general
+nof_children,family,integer,,,,,Number of children in family,prep_nof_children,Number of children in family,var_general
+maritalstatus,family,categorical,cat_general,maritalstatus,,,Sample adult's current marital status,MARITAL_A,"Question Text: The next questions are about marriage and cohabitation. Are you now married, living with a partner together as an unmarried couple, or neither?",var_general

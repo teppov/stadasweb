@@ -1,0 +1,32 @@
+categoryset,categoryname,mapping,label_en,colortable,colorname,tablename
+health,excellent,1,Excellent,,,cat_wellbeing
+health,vgood,2,Very good,,,cat_wellbeing
+health,good,3,Good,,,cat_wellbeing
+health,fair,4,Fair,,,cat_wellbeing
+health,poor,5,Poor,,,cat_wellbeing
+health,refused,7,Refused,,,cat_wellbeing
+health,notascert,8,Not ascertained,,,cat_wellbeing
+health,dontknow,9,Don't Know,,,cat_wellbeing
+difficulty,nodiff,1,No difficulty,,,cat_wellbeing
+difficulty,somediff,2,Some difficulty,,,cat_wellbeing
+difficulty,alotdiff,3,A lot of difficulty,,,cat_wellbeing
+difficulty,cantdo,4,Cannot do at all,,,cat_wellbeing
+difficulty,refused,7,Refused,,,cat_wellbeing
+difficulty,notascert,8,Not ascertained,,,cat_wellbeing
+difficulty,dontknow,9,Don't Know,,,cat_wellbeing
+frequency,daily,1,Daily,,,cat_wellbeing
+frequency,weekly,2,Weekly,,,cat_wellbeing
+frequency,monthly,3,Monthly,,,cat_wellbeing
+frequency,yearly,4,A few times a year,,,cat_wellbeing
+frequency,never,5,Never,,,cat_wellbeing
+frequency,refused,7,Refused,,,cat_wellbeing
+frequency,notascert,8,Not ascertained,,,cat_wellbeing
+frequency,dontknow,9,Don't Know,,,cat_wellbeing
+kessler6,aott,1,All of the time,,,cat_wellbeing
+kessler6,maott,2,Most of the time,,,cat_wellbeing
+kessler6,saott,3,Some of the time,,,cat_wellbeing
+kessler6,laott,4,A little of the time,,,cat_wellbeing
+kessler6,naott,5,None of the time,,,cat_wellbeing
+kessler6,refused,7,Refused,,,cat_wellbeing
+kessler6,notascert,8,Not ascertained,,,cat_wellbeing
+kessler6,dontknow,9,Don't Know,,,cat_wellbeing

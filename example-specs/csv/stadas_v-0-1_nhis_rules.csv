@@ -1,0 +1,7 @@
+rulename,rule,label,description
+age_valid,age >= 18 & age <= 85,Age valid,
+height_valid,height >= 1.45 & height <= 2.0,Height valid,
+weight_valid,weight >= 45 & weight <= 140,Weight valid,
+nof_adults_valid,nof_adults >= 1 & nof_adults <= 3,The number of adults valid,
+nof_children_valid,nof_children >= 0 & nof_children <= 3,The number of adults valid,
+lifesatisfaction_valid,lifesatisfaction >= 0 & lifesatisfaction <= 10,Life satisfaction valid,

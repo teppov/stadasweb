@@ -1,0 +1,953 @@
+{
+    "setup": [
+        {
+            "tabletype": "variable",
+            "tablename": "var_general"
+        },
+        {
+            "tabletype": "variable",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "tabletype": "rule",
+            "tablename": "rules_general"
+        }
+    ],
+    "preprocess": [
+        {
+            "mappingkey": null,
+            "newvarname": "prep_age",
+            "operation": "replace( AGEP_A, c( 97, 98, 99 ), NA )",
+            "description": "In AGEP_A, replace the codes of \"Refused\", \"Not ascertained\" and \"Don\u2019t know\" with NA"
+        },
+        {
+            "mappingkey": null,
+            "newvarname": "prep_height",
+            "operation": "replace( HEIGHTTC_A, c( 96, 97, 98, 99 ), NA )",
+            "description": "In HEIGHTTC_A, replace the codes of \u201cNot available\u201d, \"Refused\", \"Not ascertained\" and \"Don\u2019t know\" with NA"
+        },
+        {
+            "mappingkey": null,
+            "newvarname": "prep_height",
+            "operation": "as.numeric( prep_height )",
+            "description": "Convert to numeric to make calculations"
+        },
+        {
+            "mappingkey": null,
+            "newvarname": "prep_height",
+            "operation": "prep_height * 0.0254",
+            "description": "Convert inches to meters"
+        },
+        {
+            "mappingkey": null,
+            "newvarname": "prep_weight",
+            "operation": "replace( WEIGHTLBTC_A, c( 996, 997, 998, 999 ), NA )",
+            "description": "In WEIGHTLBTC_A, replace the codes of \u201cNot available\u201d, \"Refused\", \"Not ascertained\" and \"Don\u2019t know\" with NA"
+        },
+        {
+            "mappingkey": null,
+            "newvarname": "prep_weight",
+            "operation": "as.numeric( prep_weight )",
+            "description": "Convert to numeric to make calculations"
+        },
+        {
+            "mappingkey": null,
+            "newvarname": "prep_weight",
+            "operation": "prep_weight * 0.4535924",
+            "description": "Convert pounds to kilograms"
+        },
+        {
+            "mappingkey": null,
+            "newvarname": "prep_nof_adults",
+            "operation": "replace( PCNTADLT_A, c( 8 ), NA )",
+            "description": "in PCNTADLT_A, replace the code of \u201cNot ascertained\u201d with NA"
+        },
+        {
+            "mappingkey": null,
+            "newvarname": "prep_nof_children",
+            "operation": "replace( PCNTKIDS_A, c( 8 ), NA )",
+            "description": "in PCNTKIDS_A, replace the code of \u201cNot ascertained\u201d with NA"
+        },
+        {
+            "mappingkey": null,
+            "newvarname": "prep_lifesatisfaction",
+            "operation": "replace( LSATIS11R_A, c( 97, 98, 99 ), NA )",
+            "description": "In LSATIS11R_A, replace the codes of \"Refused\", \"Not ascertained\" and \"Don\u2019t know\" with NA"
+        }
+    ],
+    "var_general": [
+        {
+            "varname": "age",
+            "vargroup": "background",
+            "datatype": "integer",
+            "categorytable": null,
+            "categoryset": null,
+            "unique": null,
+            "nona": null,
+            "label_en": "Age",
+            "mapping": "prep_age",
+            "description": "Age in years",
+            "tablename": "var_general"
+        },
+        {
+            "varname": "sex",
+            "vargroup": "background",
+            "datatype": "categorical",
+            "categorytable": "cat_general",
+            "categoryset": "sex",
+            "unique": null,
+            "nona": null,
+            "label_en": "Sex",
+            "mapping": "SEX_A",
+            "description": "Sex of Sample Adult",
+            "tablename": "var_general"
+        },
+        {
+            "varname": "height",
+            "vargroup": "background",
+            "datatype": "decimal",
+            "categorytable": null,
+            "categoryset": null,
+            "unique": null,
+            "nona": null,
+            "label_en": "Height",
+            "mapping": "prep_height",
+            "description": "Height in meters",
+            "tablename": "var_general"
+        },
+        {
+            "varname": "weight",
+            "vargroup": "background",
+            "datatype": "decimal",
+            "categorytable": null,
+            "categoryset": null,
+            "unique": null,
+            "nona": null,
+            "label_en": "Weight",
+            "mapping": "prep_weight",
+            "description": "Weight in kilograms",
+            "tablename": "var_general"
+        },
+        {
+            "varname": "edulevel",
+            "vargroup": "background",
+            "datatype": "categorical",
+            "categorytable": "cat_general",
+            "categoryset": "edulevel",
+            "unique": null,
+            "nona": null,
+            "label_en": "Education level",
+            "mapping": "EDUCP_A",
+            "description": "Educational level of sample adult",
+            "tablename": "var_general"
+        },
+        {
+            "varname": "nof_adults",
+            "vargroup": "family",
+            "datatype": "integer",
+            "categorytable": null,
+            "categoryset": null,
+            "unique": null,
+            "nona": null,
+            "label_en": "Number of adults in family",
+            "mapping": "prep_nof_adults",
+            "description": "Number of adults in family",
+            "tablename": "var_general"
+        },
+        {
+            "varname": "nof_children",
+            "vargroup": "family",
+            "datatype": "integer",
+            "categorytable": null,
+            "categoryset": null,
+            "unique": null,
+            "nona": null,
+            "label_en": "Number of children in family",
+            "mapping": "prep_nof_children",
+            "description": "Number of children in family",
+            "tablename": "var_general"
+        },
+        {
+            "varname": "maritalstatus",
+            "vargroup": "family",
+            "datatype": "categorical",
+            "categorytable": "cat_general",
+            "categoryset": "maritalstatus",
+            "unique": null,
+            "nona": null,
+            "label_en": "Sample adult's current marital status",
+            "mapping": "MARITAL_A",
+            "description": "Question Text: The next questions are about marriage and cohabitation. Are you now married, living with a partner together as an unmarried couple, or neither?",
+            "tablename": "var_general"
+        }
+    ],
+    "var_wellbeing": [
+        {
+            "varname": "health",
+            "vargroup": "wellbeing",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "health",
+            "unique": null,
+            "nona": null,
+            "label_en": "General health status",
+            "mapping": "PHSTAT_A",
+            "description": "Question Text: Would you say your health in general is excellent, very good, good, fair, or poor?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "lifesatisfaction",
+            "vargroup": "wellbeing",
+            "datatype": "integer",
+            "categorytable": null,
+            "categoryset": null,
+            "unique": null,
+            "nona": null,
+            "label_en": "Life satisfaction",
+            "mapping": "prep_lifesatisfaction",
+            "description": "Question Text: Using a scale of 0 to 10, where 0 means \"very dissatisfied\" and 10 means \"very satisfied\", how do you feel about your life as a whole these days?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "diff_walk100yd",
+            "vargroup": "diff_mob",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "difficulty",
+            "unique": null,
+            "nona": null,
+            "label_en": "Difficulty walking 100 yards without aid",
+            "mapping": "WLK100_A",
+            "description": "Question Text: Do you have difficulty walking 100 yards on level ground, that would be about the length of one football field or one city block? Would you say no difficulty, some difficulty, a lot of difficulty, or you cannot do this at all?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "diff_walk033miles",
+            "vargroup": "diff_mob",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "difficulty",
+            "unique": null,
+            "nona": null,
+            "label_en": "Difficulty walking 1/3 mile",
+            "mapping": "WLK13M_A",
+            "description": "Question Text: Do you have difficulty walking a third of a mile on level ground, that would be the length of five football fields or five city blocks?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "diff_walksteps",
+            "vargroup": "diff_mob",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "difficulty",
+            "unique": null,
+            "nona": null,
+            "label_en": "Difficulty walking steps",
+            "mapping": "STEPS_A",
+            "description": "Question Text: Do you have difficulty walking up or down 12 steps?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "diff_communication",
+            "vargroup": "diff_ccs",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "difficulty",
+            "unique": null,
+            "nona": null,
+            "label_en": "Difficulty communicating",
+            "mapping": "COMDIFF_A",
+            "description": "Question Text: Using your usual language, do you have difficulty communicating, for example, understanding or being understood?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "diff_remconc",
+            "vargroup": "diff_ccs",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "difficulty",
+            "unique": null,
+            "nona": null,
+            "label_en": "Difficulty remembering/concentrating",
+            "mapping": "COGMEMDFF_A",
+            "description": "Question Text: Do you have difficulty remembering or concentrating?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "diff_errands",
+            "vargroup": "diff_ccs",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "difficulty",
+            "unique": null,
+            "nona": null,
+            "label_en": "Difficulty doing errands alone",
+            "mapping": "SOCERRNDS_A",
+            "description": "Question Text: Because of a physical, mental, or emotional condition, do you have difficulty doing errands alone such as visiting a doctor's office or shopping?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "diff_socactivities",
+            "vargroup": "diff_ccs",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "difficulty",
+            "unique": null,
+            "nona": null,
+            "label_en": "Difficulty participating in social activities",
+            "mapping": "SOCSCLPAR_A",
+            "description": "Question Text: Because of a physical, mental, or emotional condition, do you have difficulty participating in social activities such as visiting friends, attending clubs and meetings, or going to parties?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "mh_anxiety",
+            "vargroup": "mentalhealth",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "frequency",
+            "unique": null,
+            "nona": null,
+            "label_en": "How often feel worried, nervous, or anxious",
+            "mapping": "ANXFREQ_A",
+            "description": "Question Text: How often do you feel worried, nervous or anxious? Would you say daily, weekly, monthly, a few times a year, or never?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "mh_depression",
+            "vargroup": "mentalhealth",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "frequency",
+            "unique": null,
+            "nona": null,
+            "label_en": "How often depressed",
+            "mapping": "DEPFREQ_A",
+            "description": "Question Text: How often do you feel depressed? Would you say daily, weekly, monthly, a few times a year, or never?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "k6_sadness",
+            "vargroup": "kessler6",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "kessler6",
+            "unique": null,
+            "nona": null,
+            "label_en": "How often felt so sad nothing cheers you up, past 30 days",
+            "mapping": "SAD_A",
+            "description": "Question Text: During the past 30 days, how often did you feel ...So sad that nothing could cheer you up? Would you say all of the time, most of the time, some of the time, a little of the time, or none of the time?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "k6_nervous",
+            "vargroup": "kessler6",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "kessler6",
+            "unique": null,
+            "nona": null,
+            "label_en": "How often felt nervous, past 30 days",
+            "mapping": "NERVOUS_A",
+            "description": "Question Text: During the past 30 days, how often did you feel ...Nervous? Would you say all of the time, most of the time, some of the time, a little of the time, or none of the time?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "k6_restless",
+            "vargroup": "kessler6",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "kessler6",
+            "unique": null,
+            "nona": null,
+            "label_en": "How often felt restless/fidgety, past 30 days",
+            "mapping": "RESTLESS_A",
+            "description": "Question Text: During the past 30 days, how often did you feel ...Restless or fidgety? Would you say all of the time, most of the time, some of the time, a little of the time, or none of the time?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "k6_hopeless",
+            "vargroup": "kessler6",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "kessler6",
+            "unique": null,
+            "nona": null,
+            "label_en": "How often felt hopeless, past 30 days",
+            "mapping": "HOPELESS_A",
+            "description": "Question Text: During the past 30 days, how often did you feel ...Hopeless? Would you say all of the time, most of the time, some of the time, a little of the time, or none of the time?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "k6_effort",
+            "vargroup": "kessler6",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "kessler6",
+            "unique": null,
+            "nona": null,
+            "label_en": "How often felt everything was an effort, past 30 days",
+            "mapping": "EFFORT_A",
+            "description": "Question Text: During the past 30 days, how often did you feel ...That everything was an effort? Would you say all of the time, most of the time, some of the time, a little of the time, or none of the time?",
+            "tablename": "var_wellbeing"
+        },
+        {
+            "varname": "k6_worthless",
+            "vargroup": "kessler6",
+            "datatype": "categorical",
+            "categorytable": "cat_wellbeing",
+            "categoryset": "kessler6",
+            "unique": null,
+            "nona": null,
+            "label_en": "How often felt worthless, past 30 days",
+            "mapping": "WORTHLESS_A",
+            "description": "Question Text: During the past 30 days, how often did you feel ...Worthless? Would you say all of the time, most of the time, some of the time, a little of the time, or none of the time?",
+            "tablename": "var_wellbeing"
+        }
+    ],
+    "cat_general": [
+        {
+            "categoryset": "sex",
+            "categoryname": "male",
+            "mapping": "1",
+            "label_en": "Male",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "sex",
+            "categoryname": "female",
+            "mapping": "2",
+            "label_en": "Female",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "sex",
+            "categoryname": "refused",
+            "mapping": "7",
+            "label_en": "Refused",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "sex",
+            "categoryname": "notascert",
+            "mapping": "8",
+            "label_en": "Not ascertained",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "sex",
+            "categoryname": "dontknow",
+            "mapping": "9",
+            "label_en": "Don\u2019t know",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "none",
+            "mapping": "0",
+            "label_en": "Never attended/kindergarten only",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "g11",
+            "mapping": "1",
+            "label_en": "Grade 1\u201311",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "g12",
+            "mapping": "2",
+            "label_en": "12th grade, no diploma",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "ged",
+            "mapping": "3",
+            "label_en": "GED or equivalent",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "hschool",
+            "mapping": "4",
+            "label_en": "High School Graduate",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "college",
+            "mapping": "5",
+            "label_en": "Some college, no degree",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "occup",
+            "mapping": "6",
+            "label_en": "Associate degree: occupational, technical, or vocational program",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "academic",
+            "mapping": "7",
+            "label_en": "Associate degree: academic program",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "bachelors",
+            "mapping": "8",
+            "label_en": "Bachelor's degree (Example: BA, AB, BS, BBA)",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "masters",
+            "mapping": "9",
+            "label_en": "Master's degree (Example: MA, MS, MEng, MEd, MBA)",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "phd",
+            "mapping": "10",
+            "label_en": "Professional School or Doctoral degree (Example: MD, DDS, DVM, JD, PhD, EdD)",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "refused",
+            "mapping": "97",
+            "label_en": "Refused",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "notascert",
+            "mapping": "98",
+            "label_en": "Not ascertained",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "edulevel",
+            "categoryname": "dontknow",
+            "mapping": "99",
+            "label_en": "Don't Know",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "maritalstatus",
+            "categoryname": "married",
+            "mapping": "1",
+            "label_en": "Married",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "maritalstatus",
+            "categoryname": "wpartner",
+            "mapping": "2",
+            "label_en": "Living with a partner together as an unmarried couple",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "maritalstatus",
+            "categoryname": "neither",
+            "mapping": "3",
+            "label_en": "Neither",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "maritalstatus",
+            "categoryname": "refused",
+            "mapping": "7",
+            "label_en": "Refused",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "maritalstatus",
+            "categoryname": "notascert",
+            "mapping": "8",
+            "label_en": "Not ascertained",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        },
+        {
+            "categoryset": "maritalstatus",
+            "categoryname": "dontknow",
+            "mapping": "9",
+            "label_en": "Don\u2019t know",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_general"
+        }
+    ],
+    "cat_wellbeing": [
+        {
+            "categoryset": "health",
+            "categoryname": "excellent",
+            "mapping": "1",
+            "label_en": "Excellent",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "health",
+            "categoryname": "vgood",
+            "mapping": "2",
+            "label_en": "Very good",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "health",
+            "categoryname": "good",
+            "mapping": "3",
+            "label_en": "Good",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "health",
+            "categoryname": "fair",
+            "mapping": "4",
+            "label_en": "Fair",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "health",
+            "categoryname": "poor",
+            "mapping": "5",
+            "label_en": "Poor",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "health",
+            "categoryname": "refused",
+            "mapping": "7",
+            "label_en": "Refused",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "health",
+            "categoryname": "notascert",
+            "mapping": "8",
+            "label_en": "Not ascertained",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "health",
+            "categoryname": "dontknow",
+            "mapping": "9",
+            "label_en": "Don't Know",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "difficulty",
+            "categoryname": "nodiff",
+            "mapping": "1",
+            "label_en": "No difficulty",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "difficulty",
+            "categoryname": "somediff",
+            "mapping": "2",
+            "label_en": "Some difficulty",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "difficulty",
+            "categoryname": "alotdiff",
+            "mapping": "3",
+            "label_en": "A lot of difficulty",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "difficulty",
+            "categoryname": "cantdo",
+            "mapping": "4",
+            "label_en": "Cannot do at all",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "difficulty",
+            "categoryname": "refused",
+            "mapping": "7",
+            "label_en": "Refused",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "difficulty",
+            "categoryname": "notascert",
+            "mapping": "8",
+            "label_en": "Not ascertained",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "difficulty",
+            "categoryname": "dontknow",
+            "mapping": "9",
+            "label_en": "Don't Know",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "frequency",
+            "categoryname": "daily",
+            "mapping": "1",
+            "label_en": "Daily",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "frequency",
+            "categoryname": "weekly",
+            "mapping": "2",
+            "label_en": "Weekly",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "frequency",
+            "categoryname": "monthly",
+            "mapping": "3",
+            "label_en": "Monthly",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "frequency",
+            "categoryname": "yearly",
+            "mapping": "4",
+            "label_en": "A few times a year",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "frequency",
+            "categoryname": "never",
+            "mapping": "5",
+            "label_en": "Never",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "frequency",
+            "categoryname": "refused",
+            "mapping": "7",
+            "label_en": "Refused",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "frequency",
+            "categoryname": "notascert",
+            "mapping": "8",
+            "label_en": "Not ascertained",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "frequency",
+            "categoryname": "dontknow",
+            "mapping": "9",
+            "label_en": "Don't Know",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "kessler6",
+            "categoryname": "aott",
+            "mapping": "1",
+            "label_en": "All of the time",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "kessler6",
+            "categoryname": "maott",
+            "mapping": "2",
+            "label_en": "Most of the time",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "kessler6",
+            "categoryname": "saott",
+            "mapping": "3",
+            "label_en": "Some of the time",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "kessler6",
+            "categoryname": "laott",
+            "mapping": "4",
+            "label_en": "A little of the time",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "kessler6",
+            "categoryname": "naott",
+            "mapping": "5",
+            "label_en": "None of the time",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "kessler6",
+            "categoryname": "refused",
+            "mapping": "7",
+            "label_en": "Refused",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "kessler6",
+            "categoryname": "notascert",
+            "mapping": "8",
+            "label_en": "Not ascertained",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        },
+        {
+            "categoryset": "kessler6",
+            "categoryname": "dontknow",
+            "mapping": "9",
+            "label_en": "Don't Know",
+            "colortable": null,
+            "colorname": null,
+            "tablename": "cat_wellbeing"
+        }
+    ],
+    "rules": [
+        {
+            "rulename": "age_valid",
+            "rule": "age >= 18 & age <= 85",
+            "label": "Age valid",
+            "description": null
+        },
+        {
+            "rulename": "height_valid",
+            "rule": "height >= 1.45 & height <= 2.0",
+            "label": "Height valid",
+            "description": null
+        },
+        {
+            "rulename": "weight_valid",
+            "rule": "weight >= 45 & weight <= 140",
+            "label": "Weight valid",
+            "description": null
+        },
+        {
+            "rulename": "nof_adults_valid",
+            "rule": "nof_adults >= 1 & nof_adults <= 3",
+            "label": "The number of adults valid",
+            "description": null
+        },
+        {
+            "rulename": "nof_children_valid",
+            "rule": "nof_children >= 0 & nof_children <= 3",
+            "label": "The number of adults valid",
+            "description": null
+        },
+        {
+            "rulename": "lifesatisfaction_valid",
+            "rule": "lifesatisfaction >= 0 & lifesatisfaction <= 10",
+            "label": "Life satisfaction valid",
+            "description": null
+        }
+    ]
+}

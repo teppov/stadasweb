@@ -1,0 +1,72 @@
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>mappingkey</th>
+      <th>newvarname</th>
+      <th>operation</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>&lt;NA&gt;</td>
+      <td>prep_age</td>
+      <td>replace( AGEP_A, c( 97, 98, 99 ), NA )</td>
+      <td>In AGEP_A, replace the codes of "Refused", "Not ascertained" and "Don’t know" with NA</td>
+    </tr>
+    <tr>
+      <td>&lt;NA&gt;</td>
+      <td>prep_height</td>
+      <td>replace( HEIGHTTC_A, c( 96, 97, 98, 99 ), NA )</td>
+      <td>In HEIGHTTC_A, replace the codes of “Not available”, "Refused", "Not ascertained" and "Don’t know" with NA</td>
+    </tr>
+    <tr>
+      <td>&lt;NA&gt;</td>
+      <td>prep_height</td>
+      <td>as.numeric( prep_height )</td>
+      <td>Convert to numeric to make calculations</td>
+    </tr>
+    <tr>
+      <td>&lt;NA&gt;</td>
+      <td>prep_height</td>
+      <td>prep_height * 0.0254</td>
+      <td>Convert inches to meters</td>
+    </tr>
+    <tr>
+      <td>&lt;NA&gt;</td>
+      <td>prep_weight</td>
+      <td>replace( WEIGHTLBTC_A, c( 996, 997, 998, 999 ), NA )</td>
+      <td>In WEIGHTLBTC_A, replace the codes of “Not available”, "Refused", "Not ascertained" and "Don’t know" with NA</td>
+    </tr>
+    <tr>
+      <td>&lt;NA&gt;</td>
+      <td>prep_weight</td>
+      <td>as.numeric( prep_weight )</td>
+      <td>Convert to numeric to make calculations</td>
+    </tr>
+    <tr>
+      <td>&lt;NA&gt;</td>
+      <td>prep_weight</td>
+      <td>prep_weight * 0.4535924</td>
+      <td>Convert pounds to kilograms</td>
+    </tr>
+    <tr>
+      <td>&lt;NA&gt;</td>
+      <td>prep_nof_adults</td>
+      <td>replace( PCNTADLT_A, c( 8 ), NA )</td>
+      <td>in PCNTADLT_A, replace the code of “Not ascertained” with NA</td>
+    </tr>
+    <tr>
+      <td>&lt;NA&gt;</td>
+      <td>prep_nof_children</td>
+      <td>replace( PCNTKIDS_A, c( 8 ), NA )</td>
+      <td>in PCNTKIDS_A, replace the code of “Not ascertained” with NA</td>
+    </tr>
+    <tr>
+      <td>&lt;NA&gt;</td>
+      <td>prep_lifesatisfaction</td>
+      <td>replace( LSATIS11R_A, c( 97, 98, 99 ), NA )</td>
+      <td>In LSATIS11R_A, replace the codes of "Refused", "Not ascertained" and "Don’t know" with NA</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,11 @@
+mappingkey,newvarname,operation,description
+,prep_age,"replace( AGEP_A, c( 97, 98, 99 ), NA )","In AGEP_A, replace the codes of ""Refused"", ""Not ascertained"" and ""Don’t know"" with NA"
+,prep_height,"replace( HEIGHTTC_A, c( 96, 97, 98, 99 ), NA )","In HEIGHTTC_A, replace the codes of “Not available”, ""Refused"", ""Not ascertained"" and ""Don’t know"" with NA"
+,prep_height,as.numeric( prep_height ),Convert to numeric to make calculations
+,prep_height,prep_height * 0.0254,Convert inches to meters
+,prep_weight,"replace( WEIGHTLBTC_A, c( 996, 997, 998, 999 ), NA )","In WEIGHTLBTC_A, replace the codes of “Not available”, ""Refused"", ""Not ascertained"" and ""Don’t know"" with NA"
+,prep_weight,as.numeric( prep_weight ),Convert to numeric to make calculations
+,prep_weight,prep_weight * 0.4535924,Convert pounds to kilograms
+,prep_nof_adults,"replace( PCNTADLT_A, c( 8 ), NA )","in PCNTADLT_A, replace the code of “Not ascertained” with NA"
+,prep_nof_children,"replace( PCNTKIDS_A, c( 8 ), NA )","in PCNTKIDS_A, replace the code of “Not ascertained” with NA"
+,prep_lifesatisfaction,"replace( LSATIS11R_A, c( 97, 98, 99 ), NA )","In LSATIS11R_A, replace the codes of ""Refused"", ""Not ascertained"" and ""Don’t know"" with NA"

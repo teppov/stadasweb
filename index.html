@@ -32,7 +32,8 @@
 
 <div class="ver">
   <p class="ver">
-    <a class="ver" href="https://semver.org/">Version</a> 0.1.0
+    <a class="ver" href="https://semver.org/">Version</a> 0.2.0
+    (<a class="ver" href="https://github.com/teppov/stadasweb">GitHub</a>)
   </p>
 </div>
 
@@ -62,8 +63,8 @@
     <li><a href="#heading-simple-example"><strong>Simple example</strong></a>:
       A simple Stadas example as HTML tables
     </li>
-    <li><a href="#heading-full-examples"><strong>Full examples</strong></a>:
-      Full Stadas examples in various formats
+    <li><a href="#heading-full-example"><strong>Full example</strong></a>:
+      A full Stadas example in various formats
     </li>
     <li><a href="#heading-process-example"><strong>Process example: Surveys</strong></a>:
       An example of a survey process using Stadas
@@ -132,6 +133,7 @@
 
   <ul>
     <li><code>setup</code>: exactly one</li>
+    <li><code>preprocess</code>: zero or one</li>
     <li><code>variables</code>: one or more</li>
     <li><code>categories</code>: zero or more</li>
     <li><code>colors</code>: zero or more</li>
@@ -176,6 +178,53 @@
               </ul>
             </li>
           </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3><code>preprocess</code></h3>
+
+  <ul>
+    <li>The specification consists <strong>zero or one</strong> <code>preprocess</code> table</li>
+    <li>Description:
+      <ul>
+        <li>The table containing code for creating preprocess variables</li>
+      </ul>
+    </li>
+    <li>Columns:
+      <ul>
+        <li><strong><code>mappingkey</code></strong>: a key for selecting the right data
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>Must be unique within the dataset</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>newvarname</code></strong>: the name of the new variable to be created
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>Must start with a lower case ASCII letter (a...z)</li>
+                <li>Must contain only lower case alpha-numeric ASCII characters
+                  and underscores (a...z, 0...9 and _)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>operation</code></strong>: the operation to perform to create the new variable
+          <ul>
+            <li>Constraints:
+              <ul>
+                <li>Must be a valid epxression</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong><code>description</code></strong>: a human-readable description for the operation
         </li>
       </ul>
     </li>
@@ -656,21 +705,21 @@
       </tr>
       <tr>
         <td>age_valid</td>
-        <td>age => 0 & age < 120</td>
+        <td>age => 18 & age < 100</td>
         <td>Age is valid</td>
-        <td>Age must be at least zero and less than 120 year</td>
+        <td>Age must be at least 18 and less than 100 year</td>
       </tr>
       <tr>
         <td>height_valid</td>
-        <td>height => 40 & height < 250</td>
+        <td>height => 140 & height < 210</td>
         <td>Height is valid</td>
-        <td>Height must be at least 40 and less than 250 centimeters</td>
+        <td>Height must be at least 140 and less than 210 centimeters</td>
       </tr>
       <tr>
         <td>weight_valid</td>
-        <td>weight => 2 & weight < 500</td>
+        <td>weight => 40 & weight < 150</td>
         <td>Weight is valid</td>
-        <td>Weight must be at least two and less than 500 kilograms</td>
+        <td>Weight must be at least 40 and less than 150 kilograms</td>
       </tr>
     </table>
   </div>
@@ -722,7 +771,7 @@
     </tr>
   </table>
 
-  <h2 id="heading-full-examples">Full examples</h2>
+  <h2 id="heading-full-example">Full example</h2>
 
   <p>A full example is created with the
     <a href="https://www.cdc.gov/nchs/nhis/index.htm">National Health Interview Survey</a>
@@ -735,6 +784,12 @@
     <li><a href="./example-specs/json/">JSON</a></li>
   </ul>
 
+  <p>The example has seven tables. The <code>setup</code> table names the <code>variables</code> and
+    <code>rules</code> tables. The <code>preprocess</code> table defines operations for calculating
+    some preprocessing variables. Two <code>variables</code> tables define the variables and
+    two <code>categories</code> tables the categories. Finally, a <code>rules</code> table defines
+    rules for integer and decimal variables.
+  <code></code></p>
 
   <h2 id="heading-process-example">Process example: Surveys</h2>
 
@@ -756,7 +811,6 @@
     </li>
     <li>Start doing analyses and plots with high confidence that the data
     from all the different surveys match the specification</li>
-    <li></li>
   </ol>
 
 

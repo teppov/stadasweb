@@ -1,0 +1,26 @@
+categoryset,categoryname,mapping,label_en,colortable,colorname,tablename
+sex,male,1,Male,,,cat_general
+sex,female,2,Female,,,cat_general
+sex,refused,7,Refused,,,cat_general
+sex,notascert,8,Not ascertained,,,cat_general
+sex,dontknow,9,Don’t know,,,cat_general
+edulevel,none,0,Never attended/kindergarten only,,,cat_general
+edulevel,g11,1,Grade 1–11,,,cat_general
+edulevel,g12,2,"12th grade, no diploma",,,cat_general
+edulevel,ged,3,GED or equivalent,,,cat_general
+edulevel,hschool,4,High School Graduate,,,cat_general
+edulevel,college,5,"Some college, no degree",,,cat_general
+edulevel,occup,6,"Associate degree: occupational, technical, or vocational program",,,cat_general
+edulevel,academic,7,Associate degree: academic program,,,cat_general
+edulevel,bachelors,8,"Bachelor's degree (Example: BA, AB, BS, BBA)",,,cat_general
+edulevel,masters,9,"Master's degree (Example: MA, MS, MEng, MEd, MBA)",,,cat_general
+edulevel,phd,10,"Professional School or Doctoral degree (Example: MD, DDS, DVM, JD, PhD, EdD)",,,cat_general
+edulevel,refused,97,Refused,,,cat_general
+edulevel,notascert,98,Not ascertained,,,cat_general
+edulevel,dontknow,99,Don't Know,,,cat_general
+maritalstatus,married,1,Married,,,cat_general
+maritalstatus,wpartner,2,Living with a partner together as an unmarried couple,,,cat_general
+maritalstatus,neither,3,Neither,,,cat_general
+maritalstatus,refused,7,Refused,,,cat_general
+maritalstatus,notascert,8,Not ascertained,,,cat_general
+maritalstatus,dontknow,9,Don’t know,,,cat_general
