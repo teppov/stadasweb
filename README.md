@@ -1,0 +1,2 @@
+# stadasweb
+This is the source for the stadas.org web site. Stadas (Schema for Tabular Dataset Specification) is a schema for specifying a tabular dataset in a format that is easy for humans to read and write. The specification is typically composed of tables, such as CSV or Excel files, but may also be represented as, for example, a JSON document. Stadas works as a documentation of a dataset but is also used for validating data for the dataset. Stadas helps in reducing the risk that data does not match documentation.
