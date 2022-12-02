@@ -91,40 +91,14 @@
     </ol>
   </blockquote>
 
-  <h3>Variable</h3>
-
-  <p>A variable is a construct with three mandatory components:</p>
-
-  <ol>
-    <li>A name (unique within a dataset)</li>
-    <li>A list of values</li>
-    <li>A mapping that ties each value to a certain observation in a certain dataset</li>
-  </ol>
-
-  <p>The name is the main interface to the variable. It should be concise but descriptive and
-    unique at least within a dataset. The list of values can hold anything from integer numbers
-    to multiple lines of text. The mapping is often built into the structure of the dataset.
-    In a tidy dataset, each row represents an observation tying all values on a given row
-    into the same observation.</p>
-
-  <h3>Observation</h3>
-
-  <p>An observation is, for example, a state of a system or a set of responses from a survey participant
+  <p>A variable has three components: A name (unique within a dataset), a list of values,
+    and a mapping that ties each value to a certain observation in a certain dataset.
+    An observation is, for example, a state of a system or a set of responses from a survey participant
     at a certain time point. The responses or entries are mapped to the variables as values in a
-    consistent manner.</p>
-
-  <p>In a tidy dataset, each row represents an observation. Each value in a row belongs to a
-    different variable (i.e. a column in a table).</p>
-
-  <h3>Value</h3>
-
-  <p>The values are typically of the same type (for example, integer or decimal numbers) or belong
-    to a set of predefined categories, but they vary within a dataset (hence, <em>"variable"</em>).
-    However, so-called <em>metadata</em> variables can be used to add context (for example,
-    a project name or the name of an organization) and be constant within the dataset.
-    A list of values within the same observation should be divided into multiple variables
-    (for example, define variables <code>stress_factor_1</code>, <code>stress_factor_2</code> and
-    <code>stress_factor_3</code>, instead of <code>stress_factors</code>).</p>
+    consistent manner. In a <em>"tidy"</em> dataset, each row represents an observation.
+    Each value in a row belongs to a different variable (i.e. a column in a table).
+    The values are typically of the same type (for example, integers or decimal numbers)
+    or belong to a set of predefined categories, but they vary within a dataset (hence, <em>"variable"</em>).
 
 
   <h2 id="heading-schema">Schema</h2>
